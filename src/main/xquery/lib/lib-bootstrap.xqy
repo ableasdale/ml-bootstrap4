@@ -80,7 +80,15 @@ declare function lib-bootstrap:figure($img-src as xs:string, $alt as xs:string, 
 (: Layout :)
 declare function lib-bootstrap:two-column-row($left as xs:int, $right as xs:int, $content-left as item(), $content-right as item()) as element(div) {
     element div {attribute class {"row"},
-        element div {attribute class {"col-"||$left},$content-left},
-        element div {attribute class {"col-"||$right},$content-right}
+        element div {attribute class {"col-"||$left}, $content-left},
+        element div {attribute class {"col-"||$right}, $content-right}
+    }
+};
+
+declare function lib-bootstrap:three-column-row($left as xs:int, $centre as xs:int, $right as xs:int, $content-left as item(), $content-centre as item(), $content-right as item()) as element(div) {
+    element div {attribute class {"row"},
+        element div {attribute class {"col-"||$left}, $content-left},
+        element div {attribute class {"col-"||$centre}, $content-centre},
+        element div {attribute class {"col-"||$right}, $content-right}
     }
 };

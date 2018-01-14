@@ -15,4 +15,5 @@ lib-bootstrap:blockquote("main body of text", "Mr Blah in", "The Big Book", "tex
 
 lib-bootstrap:figure("http://via.placeholder.com/350x150", "some alt text", "This is a caption"),
 
-lib-bootstrap:two-column-row(4,6,"A","B")
+lib-bootstrap:two-column-row(4,8,"A","B"),
+lib-bootstrap:three-column-row(4,4,4,"A","B","C")
