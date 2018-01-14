@@ -50,4 +50,37 @@ declare function lib-bootstrap:display-header($size as xs:int, $heading as xs:st
     element {"h"||$size} {attribute class {"display-"||$size}, $heading}
 };
 
+(: Blockquote :)
 
+declare function lib-bootstrap:blockquote($quote as xs:string, $footer-text as xs:string, $citation-title as xs:string, $justification as xs:string) as element(blockquote) {
+    <blockquote class="blockquote {$justification}">
+        <p class="mb-0">{$quote}</p>
+        <footer class="blockquote-footer">{$footer-text||" "} <cite title="{$citation-title}">{$citation-title}</cite></footer>
+    </blockquote>
+};
+
+
+(: Card :)
+declare function lib-bootstrap:card-with-header($title as xs:string, $body as item()*) as element(div) {
+    <div class="card">
+        <h5 class="card-header">{$title}</h5>
+        <div class="card-body">{$body}</div>
+    </div>
+};
+
+(: Figure :)
+declare function lib-bootstrap:figure($img-src as xs:string, $alt as xs:string, $caption as xs:string) as element(figure) {
+    <figure class="figure">
+        <img src="{$img-src}" class="figure-img img-fluid rounded" alt="{$alt}" />
+        <figcaption class="figure-caption">{$caption}</figcaption>
+    </figure>
+};
+
+
+(: Layout :)
+declare function lib-bootstrap:two-column-row($left as xs:int, $right as xs:int, $content-left as item(), $content-right as item()) as element(div) {
+    element div {attribute class {"row"},
+        element div {attribute class {"col-"||$left},$content-left},
+        element div {attribute class {"col-"||$right},$content-right}
+    }
+};
