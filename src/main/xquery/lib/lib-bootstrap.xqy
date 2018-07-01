@@ -141,3 +141,16 @@ declare function lib-bootstrap:three-column-row($left as xs:int, $centre as xs:i
         element div {attribute class {"col-"||$right}, $content-right}
     }
 };
+
+(: Dismissable Alert :)
+declare function lib-bootstrap:dismissable-alert($bold-text as xs:string, $text as xs:string) {
+    element div {
+        attribute class {"alert alert-warning alert-dismissible fade show"},
+        attribute role {"alert"},
+        element strong {$bold-text}," "||
+        $text,
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    }
+};
