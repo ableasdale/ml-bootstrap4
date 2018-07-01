@@ -9,12 +9,10 @@ declare variable $text as xs:string := "test";
 lib-bootstrap:create-starter-template("MarkLogic Bootstrap 4 Page Template",
         lib-bootstrap:bootstrap-fluid-container(
         (
-            <h1>{$text}</h1>,
-            <h2>{$text}</h2>,
-            <h3>{$text}</h3>,
-            <h4>{$text}</h4>,
-            <h5>{$text}</h5>,
-            <h6>{$text}</h6>,
+            for $i in 1 to 7 return (lib-bootstrap:h($i, "Header "||$i)),
+            for $i in 1 to 4 return (lib-bootstrap:display-header($i, "Display Header "||$i, "with subheading text")),
+
+            element hr {},
 
             lib-bootstrap:display-with-muted-text(4, "Main title", "sub"),
             lib-bootstrap:lead-paragraph("lead text"),
@@ -22,9 +20,14 @@ lib-bootstrap:create-starter-template("MarkLogic Bootstrap 4 Page Template",
             lib-bootstrap:display-header(2, "header2", "with subheading text"),
             lib-bootstrap:display-header(3, "header3"),
 
+            element hr {},
+            lib-bootstrap:h(5, "Blockquote"),
+            lib-bootstrap:blockquote("blockquote rules!", "Mr Blah in", "The Big Book", "text-left"),
             lib-bootstrap:blockquote("main body of text", "Mr Blah in", "The Big Book", "text-center"),
             lib-bootstrap:blockquote("main body of text", "Mr Blah in", "The Big Book", "text-right"),
 
+            element hr {},
+            lib-bootstrap:h(5, "Figure"),
             lib-bootstrap:figure("http://via.placeholder.com/350x150", "some alt text", "This is a caption"),
 
             lib-bootstrap:two-column-row(4,8,"A","B"),
@@ -36,8 +39,11 @@ lib-bootstrap:create-starter-template("MarkLogic Bootstrap 4 Page Template",
                     lib-bootstrap:image("mr-3", "http://via.placeholder.com/350x150", "alt text"),
                     "heading",
                     "body text here"
-            )
+            ),
+
+            element hr {},
+            lib-bootstrap:h(5, "Card"),
+            lib-bootstrap:card-with-header("Card title", "Card body text")
         )
     )
 )
-

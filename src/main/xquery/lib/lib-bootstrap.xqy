@@ -17,7 +17,7 @@ declare function lib-bootstrap:create-starter-template($title as xs:string, $con
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous" />
         <title>{$title}</title>
     </head>
     <body>
@@ -48,8 +48,16 @@ declare function lib-bootstrap:lead-paragraph($text) as element(p){
     element p {attribute class {"lead"}, $text}
 };
 
-(: Display headers :)
+(: Heading (h1 - h7) :)
+declare function lib-bootstrap:h($size as xs:int, $heading as xs:string) as element() {
+    element {"h"||$size} {$heading}
+};
 
+declare function lib-bootstrap:h($size as xs:int, $class as xs:string, $heading as xs:string) as element() {
+    element {"h"||$size} {attribute class {$class}, $heading}
+};
+
+(: Display headers :)
 declare function lib-bootstrap:display-header($size as xs:int, $heading as xs:string, $subheading as xs:string) as element() {
     element {"h"||$size} {attribute class {"display-"||$size}, $heading|| " ", element small { attribute class {"text-muted"}, $subheading}}
 };
@@ -69,10 +77,10 @@ declare function lib-bootstrap:blockquote($quote as xs:string, $footer-text as x
 
 (: Card :)
 declare function lib-bootstrap:card-with-header($title as xs:string, $body as item()*) as element(div) {
-    <div class="card">
-        <h5 class="card-header">{$title}</h5>
-        <div class="card-body">{$body}</div>
-    </div>
+    element div {attribute class {"card"},
+        lib-bootstrap:h(5, "card-header", $title),
+        element div {attribute class {"card-body"}, $body}
+    }
 };
 
 declare function lib-bootstrap:image($class as xs:string, $src as xs:string, $alt as xs:string) as element(img) {
@@ -94,16 +102,29 @@ declare function lib-bootstrap:figure($img-src as xs:string, $alt as xs:string, 
 
 (: Media :)
 declare function lib-bootstrap:media($img as element(img), $heading as xs:string, $body as xs:string) {
-    <div class="media">
-        {$img}
-        <div class="media-body">
-            <h5 class="mt-0">{$heading}</h5>
-            {$body}
-        </div>
+    <div class="media">{$img, lib-bootstrap:media-body($heading, $body)}</div>
+};
+
+declare function lib-bootstrap:media-body($heading as xs:string, $body as xs:string) {
+    <div class="media-body">
+        <h5 class="mt-0">{$heading}</h5>
+        {$body}
     </div>
 };
 
-(: declare function lib-bootstrap:media($img as element(img), $heading as item(), $body as xs:string) { :)
+(: Media List :)
+declare function lib-bootstrap:media-list($items as element(li)+) as element (ul) {
+    <ul class="list-unstyled">
+        {$items}
+    </ul>
+};
+
+declare function lib-bootstrap:media-list-item($img as element(img), $heading as xs:string, $body as xs:string) as element (li) {
+    <li class="media">{$img, lib-bootstrap:media-body($heading, $body)}</li>
+};
+
+
+(: TODO - declare function lib-bootstrap:media($img as element(img), $heading as item(), $body as xs:string) { :)
 
 (: Layout :)
 declare function lib-bootstrap:two-column-row($left as xs:int, $right as xs:int, $content-left as item(), $content-right as item()) as element(div) {
