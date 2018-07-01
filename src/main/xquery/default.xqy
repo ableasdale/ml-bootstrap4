@@ -6,26 +6,38 @@ declare option xdmp:mapping "false";
 
 declare variable $text as xs:string := "test";
 
-lib-bootstrap:create-starter-template("test", lib-bootstrap:bootstrap-container(
-    (<h1>{$text}</h1>,
-        <h2>{$text}</h2>,
-        <h3>{$text}</h3>,
-        <h4>{$text}</h4>,
-        <h5>{$text}</h5>,
-        <h6>{$text}</h6>,
-        lib-bootstrap:display-with-muted-text(4, "Main title", "sub"),
-        lib-bootstrap:lead-paragraph("lead text"),
-        lib-bootstrap:display-header(1, "header1"),
-        lib-bootstrap:display-header(2, "header2", "with subheading text"),
-        lib-bootstrap:display-header(3, "header3"),
+lib-bootstrap:create-starter-template("MarkLogic Bootstrap 4 Page Template",
+        lib-bootstrap:bootstrap-fluid-container(
+        (
+            <h1>{$text}</h1>,
+            <h2>{$text}</h2>,
+            <h3>{$text}</h3>,
+            <h4>{$text}</h4>,
+            <h5>{$text}</h5>,
+            <h6>{$text}</h6>,
 
-        lib-bootstrap:blockquote("main body of text", "Mr Blah in", "The Big Book", "text-center"),
-        lib-bootstrap:blockquote("main body of text", "Mr Blah in", "The Big Book", "text-right"),
+            lib-bootstrap:display-with-muted-text(4, "Main title", "sub"),
+            lib-bootstrap:lead-paragraph("lead text"),
+            lib-bootstrap:display-header(1, "header1"),
+            lib-bootstrap:display-header(2, "header2", "with subheading text"),
+            lib-bootstrap:display-header(3, "header3"),
 
-        lib-bootstrap:figure("http://via.placeholder.com/350x150", "some alt text", "This is a caption"),
+            lib-bootstrap:blockquote("main body of text", "Mr Blah in", "The Big Book", "text-center"),
+            lib-bootstrap:blockquote("main body of text", "Mr Blah in", "The Big Book", "text-right"),
 
-        lib-bootstrap:two-column-row(4,8,"A","B"),
-        lib-bootstrap:three-column-row(4,4,4,"A","B","C")
-    ))
+            lib-bootstrap:figure("http://via.placeholder.com/350x150", "some alt text", "This is a caption"),
+
+            lib-bootstrap:two-column-row(4,8,"A","B"),
+            lib-bootstrap:three-column-row(4,4,4,"A","B","C"),
+
+            lib-bootstrap:image("mr-3 rounded", "http://via.placeholder.com/350x150", "alt text"),
+
+            lib-bootstrap:media(
+                    lib-bootstrap:image("mr-3", "http://via.placeholder.com/350x150", "alt text"),
+                    "heading",
+                    "body text here"
+            )
+        )
+    )
 )
 

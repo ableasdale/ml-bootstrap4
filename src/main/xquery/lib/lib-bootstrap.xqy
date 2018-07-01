@@ -32,8 +32,12 @@ declare function lib-bootstrap:create-starter-template($title as xs:string, $con
     </html>)
 };
 
-declare function lib-bootstrap:bootstrap-container($content as item()*) {
+declare function lib-bootstrap:bootstrap-container($content as item()*) as element(div) {
     element div { attribute class {"container"}, $content }
+};
+
+declare function lib-bootstrap:bootstrap-fluid-container($content as item()*) as element(div) {
+    element div { attribute class {"container-fluid"}, $content }
 };
 
 declare function lib-bootstrap:display-with-muted-text($size as xs:int, $main as xs:string, $sub as xs:string) as element() {
@@ -71,14 +75,35 @@ declare function lib-bootstrap:card-with-header($title as xs:string, $body as it
     </div>
 };
 
+declare function lib-bootstrap:image($class as xs:string, $src as xs:string, $alt as xs:string) as element(img) {
+    <img class="{$class}" src="{$src}" alt="{$alt}" />
+};
+
 (: Figure :)
-declare function lib-bootstrap:figure($img-src as xs:string, $alt as xs:string, $caption as xs:string) as element(figure) {
+declare function lib-bootstrap:figure($img as element(img), $caption as xs:string) as element(figure) {
     <figure class="figure">
-        <img src="{$img-src}" class="figure-img img-fluid rounded" alt="{$alt}" />
+        {$img}
         <figcaption class="figure-caption">{$caption}</figcaption>
     </figure>
 };
 
+
+declare function lib-bootstrap:figure($img-src as xs:string, $alt as xs:string, $caption as xs:string) as element(figure) {
+    lib-bootstrap:figure(lib-bootstrap:image("figure-img img-fluid", $img-src, $alt), $caption)
+};
+
+(: Media :)
+declare function lib-bootstrap:media($img as element(img), $heading as xs:string, $body as xs:string) {
+    <div class="media">
+        {$img}
+        <div class="media-body">
+            <h5 class="mt-0">{$heading}</h5>
+            {$body}
+        </div>
+    </div>
+};
+
+(: declare function lib-bootstrap:media($img as element(img), $heading as item(), $body as xs:string) { :)
 
 (: Layout :)
 declare function lib-bootstrap:two-column-row($left as xs:int, $right as xs:int, $content-left as item(), $content-right as item()) as element(div) {
